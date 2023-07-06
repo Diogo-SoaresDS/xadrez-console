@@ -2,12 +2,12 @@
 
 namespace tabuleiro {
     internal class Tabuleiro {
-        public int linhaa { get; set; }
+        public int linha { get; set; }
         public int colunas { get; set; }
         private Peca[,] pecas;
 
         public Tabuleiro(int linhas, int colunas) {
-            this.linhaa = linhas;
+            this.linha = linhas;
             this.colunas = colunas;
             pecas = new Peca[linhas, colunas];
         }
@@ -33,8 +33,18 @@ namespace tabuleiro {
             p.posicao = pos;
         }
 
+        public Peca retirarPeca(Posicao pos) {
+            if(peca(pos) == null) {
+                return null;
+            }
+            Peca aux = peca(pos);
+            aux.posicao = null;
+            pecas[pos.linha, pos.coluna] = null;
+            return aux;
+        }
+
         public bool posicaoValida(Posicao pos) {
-            if(pos.linha < 0 || pos.linha >= linhaa || pos.coluna < 0 || pos.coluna >= colunas) {
+            if(pos.linha < 0 || pos.linha >= linha || pos.coluna < 0 || pos.coluna >= colunas) {
                 return false;
             }
             return true;
